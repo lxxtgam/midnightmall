@@ -1,225 +1,86 @@
 <!DOCTYPE html>
-<!-- MIDNIGHT MALL — static landing page (GitHub Pages-ready: serve /docs).
-     Brand: calm goods for overthinkers, vaporwave skin. No build step, no JS
-     frameworks; swap the IG handle + form action when accounts exist. -->
+<!-- MIDNIGHT MALL — home. Buy buttons -> Shopify (shopmidnightmall). -->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MIDNIGHT MALL — calm goods for overthinkers</title>
-<meta name="description" content="The mall is empty. Your mind can be too. Sunset lamps, galaxy projectors, weighted blankets and other off-switches for loud brains. Open all night.">
+<meta name="description" content="The mall is empty. Your mind can be too. Sunset lamps, galaxy projectors and other off-switches for loud brains. Open all night.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg0:#0d0824; --bg1:#1d0f45; --bg2:#2a1158;
-    --pink:#ff71ce; --cyan:#01cdfe; --mint:#05ffa1; --lemon:#fffb96; --purple:#b967ff;
-    --ink:#efeaff; --dim:#b9aee0;
-  }
-  *{box-sizing:border-box; margin:0; padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:"Space Grotesk",system-ui,sans-serif; color:var(--ink);
-    background:linear-gradient(180deg,var(--bg0),var(--bg1) 45%,var(--bg2));
-    overflow-x:hidden;
-  }
-  body::after{ /* faint scanlines over everything */
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:50;
-    background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.12) 3px 4px);
-  }
-  a{color:var(--cyan)}
-
-  /* ---------- hero ---------- */
-  .hero{
-    min-height:92vh; display:flex; flex-direction:column; justify-content:center;
-    align-items:center; text-align:center; padding:9vh 24px 12vh; position:relative;
-    background:
-      linear-gradient(180deg, rgba(13,8,36,.55), rgba(13,8,36,.78) 70%, var(--bg0)),
-      url("assets/hero.jpg") center 35%/cover no-repeat;
-  }
-  .kana{color:var(--mint); letter-spacing:.45em; font-size:.85rem; margin-bottom:14px}
-  h1{
-    font-family:"Archivo Black",sans-serif; font-size:clamp(2.6rem,9vw,6.5rem);
-    line-height:.95; letter-spacing:.04em;
-    background:linear-gradient(180deg,#fff 18%,var(--cyan) 38%,#fff 50%,var(--pink) 72%,var(--purple));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    filter:drop-shadow(0 0 18px rgba(255,113,206,.45));
-  }
-  .tag{margin-top:18px; font-size:clamp(1rem,2.6vw,1.35rem); color:var(--ink)}
-  .tag em{color:var(--lemon); font-style:normal}
-  .cta-row{margin-top:34px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center}
-  .btn{
-    display:inline-block; padding:14px 28px; border-radius:999px; text-decoration:none;
-    font-weight:700; letter-spacing:.06em; transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .btn:hover{transform:translateY(-2px)}
-  .btn-solid{background:linear-gradient(90deg,var(--pink),var(--purple)); color:#fff;
-    box-shadow:0 0 24px rgba(255,113,206,.5)}
-  .btn-ghost{border:2px solid var(--cyan); color:var(--cyan); box-shadow:0 0 18px rgba(1,205,254,.25)}
-
-  /* ---------- marquee ---------- */
-  .marquee{border-top:1px solid rgba(1,205,254,.4); border-bottom:1px solid rgba(255,113,206,.4);
-    background:rgba(13,8,36,.85); overflow:hidden; white-space:nowrap; position:relative; z-index:2}
-  .marquee span{display:inline-block; padding:12px 0; font-weight:700; letter-spacing:.35em;
-    color:var(--lemon); animation:slide 28s linear infinite}
-  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-  /* ---------- shared section bits ---------- */
-  section{padding:84px 24px; max-width:1180px; margin:0 auto; position:relative; z-index:1}
-  h2{font-family:"Archivo Black",sans-serif; font-size:clamp(1.6rem,4.4vw,2.6rem);
-    letter-spacing:.05em; margin-bottom:10px; color:#fff;
-    text-shadow:0 0 14px rgba(185,103,255,.6)}
-  .sub{color:var(--dim); margin-bottom:46px; max-width:620px}
-
-  /* ---------- products ---------- */
-  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:26px}
-  .card{
-    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-    border:1px solid rgba(1,205,254,.25); border-radius:18px; overflow:hidden;
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .card:hover{transform:translateY(-6px); border-color:var(--pink);
-    box-shadow:0 12px 40px rgba(255,113,206,.25)}
-  .card img{width:100%; aspect-ratio:1; object-fit:cover; display:block}
-  .card .pad{padding:20px}
-  .card h3{font-size:1.15rem; letter-spacing:.03em; margin-bottom:6px}
-  .want{color:var(--dim); font-size:.95rem; min-height:2.6em}
-  .price-row{display:flex; align-items:center; justify-content:space-between; margin-top:16px}
-  .price{font-weight:700; font-size:1.25rem; color:var(--mint)}
-  .mini{font-size:.85rem; padding:9px 16px}
-
-  /* ---------- manifesto ---------- */
-  .manifesto{
-    border-block:1px solid rgba(255,113,206,.3);
-    background:
-      linear-gradient(rgba(13,8,36,.92),rgba(13,8,36,.92)),
-      repeating-linear-gradient(90deg,transparent 0 78px,rgba(1,205,254,.35) 78px 79px),
-      repeating-linear-gradient(0deg,transparent 0 78px,rgba(255,113,206,.3) 78px 79px);
-  }
-  .manifesto section{padding-block:72px}
-  .manifesto p{font-size:clamp(1.05rem,2.4vw,1.3rem); max-width:760px; line-height:1.75; color:var(--ink)}
-  .manifesto p + p{margin-top:18px}
-  .manifesto b{color:var(--lemon); font-weight:700}
-
-  /* ---------- waitlist ---------- */
-  .waitlist{text-align:center}
-  .waitlist form{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:30px}
-  .waitlist input{
-    padding:14px 20px; border-radius:999px; border:2px solid rgba(185,103,255,.5);
-    background:rgba(255,255,255,.06); color:var(--ink); min-width:280px; font-size:1rem;
-  }
-  .waitlist input::placeholder{color:var(--dim)}
-  .note{margin-top:18px; color:var(--dim); font-size:.9rem}
-
-  footer{padding:42px 24px 60px; text-align:center; color:var(--dim); font-size:.85rem;
-    border-top:1px solid rgba(1,205,254,.2)}
-  footer .kana{font-size:.7rem; margin:10px 0 0}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
+<nav>
+  <a class="wordmark" href="index.html">MIDNIGHT<span>MALL</span></a>
+  <div class="links">
+    <a class="here" href="index.html">home</a>
+    <a href="shop.html">shop</a>
+    <a href="about.html">about</a>
+    <a href="faq.html">faq</a>
+    <a href="https://www.instagram.com/midnightmallshop" rel="noopener">instagram</a>
+  </div>
+</nav>
+
+<main>
 <header class="hero">
   <div class="kana">ミッドナイト・モール</div>
-  <h1>MIDNIGHT<br>MALL</h1>
-  <p class="tag">Calm goods for overthinkers. <em>Open all night.</em></p>
+  <h1>MIDNIGHT MALL</h1>
+  <p class="sub">Calm goods for overthinkers. Open all night.</p>
   <div class="cta-row">
-    <a class="btn btn-solid" href="#shop">Browse the mall</a>
-    <a class="btn btn-ghost" href="#waitlist">Get the first drop</a>
+    <a class="btn btn-solid" href="shop.html">Browse the mall</a>
+    <a class="btn btn-ghost" href="about.html">Why a mall at midnight?</a>
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true">
-  <span>OPEN 24/7 ✦ FOR LOUD BRAINS ✦ LOG OFF ✦ DRIFT ✦ OPEN 24/7 ✦ FOR LOUD BRAINS ✦ LOG OFF ✦ DRIFT ✦&nbsp;</span>
-</div>
-
-<section id="shop">
-  <h2>TONIGHT'S STOREFRONTS</h2>
-  <p class="sub">Six ways to switch your head off. Every item picked for one job: ending the day on purpose.</p>
+<section>
+  <h2>TONIGHT'S FEATURED</h2>
+  <p class="sub">Three ways to switch your head off.</p>
   <div class="grid">
     <div class="card">
-      <img src="assets/sunset-lamp.jpg" alt="Sunset projection lamp casting a warm sun on a bedroom wall">
+      <a href="https://shopmidnightmall.myshopify.com/products/sunset-lamp">
+        <img src="assets/sunset-lamp.jpg" alt="Sunset projection lamp casting a warm sun on a bedroom wall"></a>
       <div class="pad">
         <h3>Sunset Lamp</h3>
         <p class="want">Golden hour, on demand. An escape hatch the size of a bulb.</p>
         <div class="price-row"><span class="price">$29</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
+          <a class="btn btn-solid mini" href="https://shopmidnightmall.myshopify.com/products/sunset-lamp">Shop</a></div>
       </div>
     </div>
     <div class="card">
-      <img src="assets/galaxy-projector.jpg" alt="Galaxy projector filling a dark bedroom with nebula light">
+      <a href="https://shopmidnightmall.myshopify.com/products/galaxy-projector">
+        <img src="assets/galaxy-projector.jpg" alt="Galaxy projector filling a dark bedroom with nebula light"></a>
       <div class="pad">
         <h3>Galaxy Projector</h3>
         <p class="want">Fall asleep somewhere else entirely.</p>
         <div class="price-row"><span class="price">$39</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
+          <a class="btn btn-solid mini" href="https://shopmidnightmall.myshopify.com/products/galaxy-projector">Shop</a></div>
       </div>
     </div>
     <div class="card">
-      <img src="assets/white-noise.jpg" alt="Minimal white-noise machine glowing on a nightstand">
-      <div class="pad">
-        <h3>Cloud Noise Machine</h3>
-        <p class="want">Static for loud brains. The thought-spiral jammer.</p>
-        <div class="price-row"><span class="price">$34</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="assets/jellyfish-lamp.jpg" alt="Jellyfish mood lamp with glowing pink and cyan jellyfish">
-      <div class="pad">
-        <h3>Jellyfish Lamp</h3>
-        <p class="want">Hypnosis, but it's furniture. Watch thoughts float by.</p>
-        <div class="price-row"><span class="price">$44</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="assets/weighted-blanket.jpg" alt="Lavender weighted blanket on a bed in neon light">
-      <div class="pad">
-        <h3>Weighted Blanket</h3>
-        <p class="want">A hug that stays exactly as long as you need it to.</p>
-        <div class="price-row"><span class="price">$59</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="assets/phone-lockbox.jpg" alt="Smartphone sealed inside a transparent timed lock box">
+      <a href="https://shopmidnightmall.myshopify.com/products/phone-jail">
+        <img src="assets/phone-lockbox.jpg" alt="Smartphone sealed inside a transparent timed lock box"></a>
       <div class="pad">
         <h3>Phone Jail</h3>
         <p class="want">Your feed can wait till morning. It won't, but it can.</p>
         <div class="price-row"><span class="price">$24</span>
-          <a class="btn btn-ghost mini" href="#waitlist">Waitlist</a></div>
+          <a class="btn btn-solid mini" href="https://shopmidnightmall.myshopify.com/products/phone-jail">Shop</a></div>
       </div>
     </div>
   </div>
+  <p style="text-align:center; margin-top:36px">
+    <a class="btn btn-ghost" href="shop.html">See all six storefronts</a></p>
 </section>
-
-<div class="manifesto">
-  <section>
-    <h2>WHY A MALL AT MIDNIGHT?</h2>
-    <p>Because that's where your head already is. Wandering. Replaying the
-    conversation from lunch. Drafting tomorrow's argument with the shower wall.</p>
-    <p><b>MIDNIGHT MALL sells the off switch.</b> Small machines for escape,
-    soft things that feel like relief, and one transparent box your phone is
-    legally afraid of. Nothing here optimizes you. It just closes the tabs.</p>
-    <p>The mall is empty. Your mind can be too.</p>
-  </section>
-</div>
-
-<section id="waitlist" class="waitlist">
-  <h2>GET THE FIRST DROP</h2>
-  <p class="sub" style="margin:0 auto">Doors open soon. The waitlist hears first, pays less.</p>
-  <!-- Hook up a real form endpoint (e.g. Formspree) before launch:
-       <form action="https://formspree.io/f/YOUR_ID" method="POST"> -->
-  <form action="#" onsubmit="alert('Doors not open yet — follow the socials!');return false">
-    <input type="email" name="email" placeholder="you@overthinking.it" required>
-    <button class="btn btn-solid" type="submit">Let me in first</button>
-  </form>
-  <p class="note">Drops + restocks announced on Instagram → <b>@midnightmallshop</b></p>
-</section>
+</main>
 
 <footer>
-  © 2026 MIDNIGHT MALL · Imagery dreamed by AI · Be kind to your brain
+  <div class="row">
+    <a href="shop.html">shop</a><a href="about.html">about</a>
+    <a href="faq.html">faq</a><a href="privacy.html">privacy</a>
+    <a href="https://www.instagram.com/midnightmallshop" rel="noopener">@midnightmallshop</a>
+  </div>
+  © 2026 MIDNIGHT MALL · be kind to your brain
   <div class="kana">ミッドナイト・モール</div>
 </footer>
 
