@@ -23,9 +23,17 @@
 <button onclick="copyCode()">Copy code</button>
 <script>
   var p = new URLSearchParams(location.search);
-  var code = p.get("code"), err = p.get("error");
+  var code = p.get("code"), err = p.get("error"), state = p.get("state") || "";
   var msg = document.getElementById("msg"), box = document.getElementById("code");
-  if (code) {
+  // TikTok "Connect" from the Afterglow server: its signed state looks like
+  // <base64>.<24 hex>. That flow finishes on the server, so pass the code
+  // straight on (this page is the redirect URI the TikTok app has approved).
+  var SERVER = "https://afterglow-reception.fly.dev/oauth/tiktok/callback";
+  if (code && /^[A-Za-z0-9_-]+={0,2}\.[0-9a-f]{24}$/.test(state)) {
+    var q = new URLSearchParams({code: code, state: state});
+    msg.textContent = "Finishing your TikTok connection…";
+    location.replace(SERVER + "?" + q.toString());
+  } else if (code) {
     box.value = code;
     msg.innerHTML = "<span class='ok'>Got it.</span> Copy this code and paste it back to Jarvis:";
   } else if (err) {
